@@ -506,6 +506,9 @@ def create_estimator_and_inputs(run_config,
   if eval_steps is None:
     eval_steps = configs['eval_config'].num_examples
 
+  eval_interval_secs = configs['eval_config'].eval_interval_secs
+  run_config = run_config.replace(save_checkpoints_secs=eval_interval_secs)
+
   detection_model_fn = functools.partial(
       model_builder.build, model_config=model_config)
 
